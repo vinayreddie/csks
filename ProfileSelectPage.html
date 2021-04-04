@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="common.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Donor's Club</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <main class="flex-shrink-0">
+    <div>
+        <!-- Header bar and Navigation Menu  -->
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+              <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-4">Welcome to Donor's Club</span>
+              </a>          
+              <ul class="nav nav-pills">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="Services.html" class="nav-link">Service</a></li>
+                <li class="nav-item"><a href="aboutus.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
+                <li class="nav-item"><a href="SignUpPage.html" class="nav-link active"id="id-head-login" >Login</a></li>
+                <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
+                <div class="dropdown text-end">
+                <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
+                  <a a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                  <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
+                </ul>
+                </li>
+                </div>
+              </li>
+              </ul>
+            </header>
+          </div>
+          <!-- ProfileSelection Module -->
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="id-profile-display">
+              <div class="col" id="id-profile">
+                <div class="card shadow-sm">                 
+                  <img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225"> 
+                   <div class="card-body">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Donate</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>
+                      </div>                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+        <!-- footer bar -->
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container" style="background-color: black;">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                      <li><a href="#" class="footerNav nav-link px-2 text-secondary pr-3">Contact Us</a></li>
+                      <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">Feedback</a></li>
+                      <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">SiteMap</a></li>
+                    </ul>
+                    <small class='footerNav nav-link px-2 text-white pr-3 hidden' id='id-lastlogin'> 
+                        Last Login was on : ---------
+                      </small>
+                </div>
+            </div>
+        </footer>
+  </body>
+</html>
+<script>
+  $(document).ready(function(){
+    ArrangeHeader();
+    API_getLastLogin();
+    API_getAllReciver();
+  });
+
+  $('#id-signout').click(()=>{
+  sessionStorage.removeItem("NAME")
+    ArrangeHeader();
+ });
+
+
+ function ArrangeHeader(){
+  let user = sessionStorage.getItem("NAME");
+    if(user !== null){
+        $('#id-head-login').addClass('hidden');
+        $('#id-head-welcomeUser').removeClass('hidden');
+        $('#id-head-img').removeClass('hidden');    
+        $('#id-head-welcomeUser').empty();
+        $('#id-head-welcomeUser').append('Welcome '+ user);      
+    }
+    else{
+      $('#id-head-welcomeUser').addClass('hidden');
+      $('#id-head-img').addClass('hidden');
+      $('#id-head-login').removeClass('hidden');
+    }
+}
+
+   
+
+function API_getAllReciver(){
+    console.log('API_getAllReciver');
+    $.ajax(getAllReciever, {
+      type: 'POST',  // http method
+      data: {  },  // data to submit
+      success: function (data, status, xhr) {
+          if(data.length > 0 ){
+            var result = data[0];
+            console.log(result.length);
+            var html = '';
+            for(var i = 0; i < result.length ; i++){
+                html += '<div class="col" id="id-profile"><div class="card shadow-sm">';
+                html += '<img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225">';
+                html += '<div class="card-body">';
+                html += '<p class="card-text">' + result[i].description + '</p>';
+                html += ' <div class="d-flex justify-content-between align-items-center">';
+                html += '<div class="btn-group">';
+                html += '<button type="button" class="btn btn-sm btn-outline-secondary">Donate</button>';
+                html += '<button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>';
+                html += '</div></div></div></div></div>';
+            }
+            $('#id-profile-display').empty();
+            $('#id-profile-display').append(html);
+          }
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+             console.log(errorMessage);
+      }
+    });
+   }
+
+   
+function API_getLastLogin(){
+   console.log('API_getLastLogin');
+   var uname =  sessionStorage.getItem("Uname");
+   if (uname != null){
+        $.ajax(getLastLogin, {
+        type: 'POST',  // http method
+        data: { username: uname },  // data to submit
+        success: function (data, status, xhr) {
+                console.log(data);
+                if(data.length > 0 ){
+                    var result = data[0];
+                    console.log(result[0].last_logIn);
+                    if($('#id-lastlogin').hasClass('hidden'))
+                    {
+                      $('#id-lastlogin').empty();
+                      $('#id-lastlogin').append('Last login : '+ result[0].last_logIn);
+                      $('#id-lastlogin').removeClass('hidden');
+                    }
+                  }
+                },
+          error: function (jqXhr, textStatus, errorMessage) {
+                  console.log(errorMessage);
+                }
+         });
+    }else{
+      if(!$('#id-lastlogin').hasClass('hidden')){
+        $('#id-lastlogin').addClass('hidden');
+      }
+    }
+  }
+</script>
